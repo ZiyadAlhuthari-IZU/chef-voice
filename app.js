@@ -253,48 +253,80 @@ function goTo(screenId) {
 // ═══════════════════════════════════════
 
 // speakNow — cancels any current speech then speaks immediately
-// used by: voice button press, chef button, next/prev step auto-read
 function speakNow(text, onDone) {
   window.speechSynthesis.cancel();
-  // Small delay fixes the Chrome bug where first utterance is silent
+  // Pause mic while speaking to prevent echo loop
+  pauseRecognition();
   setTimeout(() => {
     const u = new SpeechSynthesisUtterance(text);
     u.rate  = 0.92;
     u.pitch = 1.05;
     u.lang  = 'en-US';
-    if (onDone) u.onend = onDone;
+    u.onend = () => {
+      // Resume mic after speech finishes + small delay
+      setTimeout(() => {
+        resumeRecognition();
+        if (onDone) onDone();
+      }, 600);
+    };
     window.speechSynthesis.speak(u);
   }, 150);
 }
 
 // speakWhenFree — waits until current speech finishes, then speaks
-// used by: timer warnings (so they never interrupt the step reading)
 function speakWhenFree(text) {
   const trySpeak = () => {
     if (!window.speechSynthesis.speaking) {
+      pauseRecognition();
       const u = new SpeechSynthesisUtterance(text);
       u.rate  = 0.9;
       u.pitch = 1.1;
       u.lang  = 'en-US';
+      u.onend = () => {
+        setTimeout(() => resumeRecognition(), 600);
+      };
       window.speechSynthesis.speak(u);
     } else {
-      // Check again in 500ms
       setTimeout(trySpeak, 500);
     }
   };
   trySpeak();
 }
 
-// speakAlways — for timer end beep/done, always interrupts
+// speakAlways — for timer end, always interrupts
 function speakAlways(text) {
   window.speechSynthesis.cancel();
+  pauseRecognition();
   setTimeout(() => {
     const u = new SpeechSynthesisUtterance(text);
     u.rate  = 0.9;
     u.pitch = 1.1;
     u.lang  = 'en-US';
+    u.onend = () => {
+      setTimeout(() => resumeRecognition(), 600);
+    };
     window.speechSynthesis.speak(u);
   }, 100);
+}
+
+// Pause mic without fully stopping it
+function pauseRecognition() {
+  if (recognition && voiceCommandsOn) {
+    try { recognition.stop(); } catch(e) {}
+  }
+}
+
+// Resume mic after speech ends
+function resumeRecognition() {
+  if (recognition && voiceCommandsOn && !recognitionStarting) {
+    try {
+      recognitionStarting = true;
+      recognition.start();
+      setTimeout(() => { recognitionStarting = false; }, 300);
+    } catch(e) {
+      recognitionStarting = false;
+    }
+  }
 }
 
 // ── Voice button — press = read step, press again = restart reading ──
