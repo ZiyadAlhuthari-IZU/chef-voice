@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chef-Voice</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════ HOME ═══════════════════ -->
+  <div class="screen active" id="screen-home">
+    <div class="home-wrap">
+      <!-- DARK MODE TOGGLE -->
+      <button class="dark-mode-btn" id="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
+
+      <div class="home-hero">
+        <div class="home-emoji">👨‍🍳</div>
+        <h1 class="home-title">Chef-Voice</h1>
+        <p class="home-sub">What Are We Cooking Today ?</p>
+      </div>
+
+      <div class="recipe-list">
+        <button class="recipe-btn" onclick="goTo('screen-pasta')"><span>pasta</span><span class="rbtn-emoji">🍝</span></button>
+        <button class="recipe-btn" onclick="goTo('screen-chicken')"><span>Chicken Masala</span><span class="rbtn-emoji">🍗</span></button>
+        <button class="recipe-btn" onclick="goTo('screen-pizza')"><span>Pizza</span><span class="rbtn-emoji">🍕</span></button>
+        <button class="recipe-btn" onclick="goTo('screen-dessert')"><span>Desert</span><span class="rbtn-emoji">🍮</span></button>
+      </div>
+
+      <!-- SIDE DISHES -->
+      <div class="side-dishes-section">
+        <div class="side-dishes-label">🥗 Side Dishes</div>
+        <div class="side-dishes-row">
+          <button class="side-btn" onclick="goTo('screen-rice')">
+            <span class="side-emoji">🍚</span><span>Rice</span>
+          </button>
+          <button class="side-btn" onclick="goTo('screen-eggs')">
+            <span class="side-emoji">🥚</span><span>Fried Eggs</span>
+          </button>
+          <button class="side-btn" onclick="goTo('screen-garlic-bread')">
+            <span class="side-emoji">🧄</span><span>Garlic Bread</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- VOICE TOGGLE -->
+      <button class="voice-toggle" id="voice-toggle-btn" onclick="toggleVoiceCommands()">
+        <div class="voice-toggle-left">
+          <span class="voice-toggle-icon" id="voice-toggle-icon">🎤</span>
+          <div class="voice-toggle-text">
+            <div class="voice-toggle-title">Voice commands</div>
+            <div class="voice-toggle-sub" id="voice-toggle-sub">Off — tap to enable</div>
+          </div>
+        </div>
+        <div class="voice-toggle-switch" id="voice-toggle-switch">
+          <div class="voice-toggle-knob"></div>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ PASTA INGREDIENTS ═══════════════════ -->
+  <div class="screen" id="screen-pasta">
+    <div class="recipe-card">
+      <div class="recipe-hero" style="background-image: url('https://images.unsplash.com/photo-1657807174402-93e7d4dfd1f4?q=80&w=1026&auto=format&fit=crop');"><div class="hero-overlay"></div></div>
+      <div class="recipe-body">
+        <div class="title-row"><span class="recipe-title">Pasta</span><span class="recipe-meta">20 min · 2 servings</span></div>
+        <div class="tags"><span class="tag tag-italian">Italian</span><span class="tag tag-easy">Easy</span></div>
+        <div class="ing-header">Ingredients :</div>
+        <div class="ing-row"><span class="ing-name">Spaghetti</span><span class="ing-amt">200g</span></div>
+        <div class="ing-row"><span class="ing-name">Eggs</span><span class="ing-amt">2</span></div>
+        <div class="ing-row"><span class="ing-name">Salt</span><span class="ing-amt">to taste</span></div>
+        <div class="ing-row"><span class="ing-name">Olive oil or butter</span><span class="ing-amt">1 tbsp</span></div>
+        <div class="ing-row"><span class="ing-name">Garlic (or Powder)</span><span class="ing-amt">2 cloves</span></div>
+        <div class="opt-title">Optional - adds more flavor</div>
+        <div class="ing-row opt"><span class="ing-name">Parmesan Cheese</span><span class="ing-amt">handful</span></div>
+        <div class="ing-row opt"><span class="ing-name">Black pepper</span><span class="ing-amt">pinch</span></div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn-home" onclick="goTo('screen-home')">🏠</button>
+        <button class="btn-cook" onclick="goTo('screen-prepare-pasta')">Start Cooking →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHICKEN INGREDIENTS ═══════════════════ -->
+  <div class="screen" id="screen-chicken">
+    <div class="recipe-card">
+      <div class="recipe-hero" style="background-image: url('https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600&q=80');"><div class="hero-overlay"></div></div>
+      <div class="recipe-body">
+        <div class="title-row"><span class="recipe-title">Chicken Masala</span><span class="recipe-meta">35 min · 2 servings</span></div>
+        <div class="tags"><span class="tag tag-indian">Indian</span><span class="tag tag-medium">Medium</span></div>
+        <div class="ing-header">Ingredients :</div>
+        <div class="ing-row"><span class="ing-name">Chicken (any cut)</span><span class="ing-amt">400g</span></div>
+        <div class="ing-row"><span class="ing-name">Onion</span><span class="ing-amt">1 large</span></div>
+        <div class="ing-row"><span class="ing-name">Tomato (or canned tomatoes)</span><span class="ing-amt">2</span></div>
+        <div class="ing-row"><span class="ing-name">Olive oil or butter</span><span class="ing-amt">2 tbsp</span></div>
+        <div class="ing-row"><span class="ing-name">Garlic (or Powder)</span><span class="ing-amt">3 cloves</span></div>
+        <div class="ing-row"><span class="ing-name">Paprika or Chili powder</span><span class="ing-amt">1 tsp</span></div>
+        <div class="ing-row"><span class="ing-name">Cumin powder</span><span class="ing-amt">1 tsp</span></div>
+        <div class="ing-row"><span class="ing-name">Salt</span><span class="ing-amt">to taste</span></div>
+        <div class="opt-title">Optional - adds more flavor</div>
+        <div class="ing-row opt"><span class="ing-name">Heavy Cream</span><span class="ing-amt">200 ml</span></div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn-home" onclick="goTo('screen-home')">🏠</button>
+        <button class="btn-cook" onclick="goTo('screen-prepare-chicken')">Start Cooking →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ PIZZA INGREDIENTS ═══════════════════ -->
+  <div class="screen" id="screen-pizza">
+    <div class="recipe-card">
+      <div class="recipe-hero" style="background-image: url('https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=1169&auto=format&fit=crop');"><div class="hero-overlay"></div></div>
+      <div class="recipe-body">
+        <div class="title-row"><span class="recipe-title">Pizza</span><span class="recipe-meta">30 min · 2 servings</span></div>
+        <div class="tags"><span class="tag tag-italian">Italian</span><span class="tag tag-easy">Easy</span></div>
+        <div class="ing-header">Ingredients :</div>
+        <div class="ing-row"><span class="ing-name">Store-bought dough (base)</span><span class="ing-amt">1 pack</span></div>
+        <div class="ing-row"><span class="ing-name">Melting cheese</span><span class="ing-amt">100g</span></div>
+        <div class="ing-row"><span class="ing-name">Tomato paste</span><span class="ing-amt">3 tbsp</span></div>
+        <div class="ing-row"><span class="ing-name">Olive oil or any oil</span><span class="ing-amt">1 tbsp</span></div>
+        <div class="opt-title">Optional - adds more flavor</div>
+        <div class="ing-row opt"><span class="ing-name">Pepperoni</span><span class="ing-amt">50g</span></div>
+        <div class="ing-row opt"><span class="ing-name">Fresh basil</span><span class="ing-amt">leaves</span></div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn-home" onclick="goTo('screen-home')">🏠</button>
+        <button class="btn-cook" onclick="goTo('screen-prepare-pizza')">Start Cooking →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ DESSERT INGREDIENTS ═══════════════════ -->
+  <div class="screen" id="screen-dessert">
+    <div class="recipe-card">
+      <div class="recipe-hero" style="background-image: url('https://images.unsplash.com/photo-1615234435691-3b7bae98085e?q=80&w=1170&auto=format&fit=crop');"><div class="hero-overlay"></div></div>
+      <div class="recipe-body">
+        <div class="title-row"><span class="recipe-title">Crème Brûlée</span><span class="recipe-meta">45 min · 4 servings</span></div>
+        <div class="tags"><span class="tag tag-french">French</span><span class="tag tag-medium">Medium</span></div>
+        <div class="ing-header">Ingredients :</div>
+        <div class="ing-row"><span class="ing-name">Eggs</span><span class="ing-amt">4</span></div>
+        <div class="ing-row"><span class="ing-name">Sugar</span><span class="ing-amt">80g</span></div>
+        <div class="ing-row"><span class="ing-name">Heavy cream</span><span class="ing-amt">300ml</span></div>
+        <div class="ing-row"><span class="ing-name">Vanilla cream</span><span class="ing-amt">1 tsp</span></div>
+        <div class="opt-title">Optional - adds more flavor</div>
+        <div class="ing-row opt"><span class="ing-name">Brown sugar</span><span class="ing-amt">4 tsp</span></div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn-home" onclick="goTo('screen-home')">🏠</button>
+        <button class="btn-cook" onclick="goTo('screen-prepare-dessert')">Start Cooking →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ PASTA PREPARE ═══════════════════ -->
+  <div class="screen" id="screen-prepare-pasta">
+    <div class="prepare-card">
+      <div class="prepare-top-bar">
+        <button class="top-home-btn" onclick="goTo('screen-home')">🏠</button>
+        <span class="prepare-top-title">Get Ready</span>
+        <div style="width:40px;"></div>
+      </div>
+      <div class="prepare-hero">
+        <div class="prepare-emoji">🍝</div>
+        <h2 class="prepare-title">Before we start cooking</h2>
+        <p class="prepare-sub">Get these ready and you'll cook stress-free</p>
+      </div>
+      <div class="prepare-section-label">🍳 Get out your equipment</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A large pot (for boiling pasta)</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A small pan or frying pan</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A mixing bowl</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A colander / strainer (to drain pasta)</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A fork or whisk</span></div>
+      <div class="prepare-section-label">🧊 Take out from fridge now</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Eggs — let them reach room temp</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Butter (if using instead of olive oil)</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Parmesan cheese (if using)</span></div>
+      <div class="prepare-section-label">🔪 Quick prep before cooking</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Peel and crush or chop the garlic</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Measure out 200g of spaghetti</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Crack 2 eggs into the mixing bowl</span></div>
+      <div class="ready-bar">
+        <button class="back-text-btn" onclick="goTo('screen-pasta')">← Back</button>
+        <button class="btn-cook" onclick="startCook('pasta')">I'm Ready! Let's Cook →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ PASTA COOK (built by JS) ═══════════════════ -->
+  <div class="screen" id="screen-cook-pasta"></div>
+
+  <!-- ═══════════════════ PLACEHOLDER COOK SCREENS ═══════════════════ -->
+  <!-- ═══════════════════ CHICKEN PREPARE ═══════════════════ -->
+  <div class="screen" id="screen-prepare-chicken">
+    <div class="prepare-card">
+      <div class="prepare-top-bar">
+        <button class="top-home-btn" onclick="goTo('screen-home')">🏠</button>
+        <span class="prepare-top-title">Get Ready</span>
+        <div style="width:40px;"></div>
+      </div>
+      <div class="prepare-hero">
+        <div class="prepare-emoji">🍗</div>
+        <h2 class="prepare-title">Before we start cooking</h2>
+        <p class="prepare-sub">Get these ready and you'll cook stress-free</p>
+      </div>
+      <div class="prepare-section-label">🍳 Get out your equipment</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A large pan or deep frying pan with a lid</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A chopping board</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A knife</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A wooden spoon or spatula</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A small bowl for spices</span></div>
+      <div class="prepare-section-label">🧊 Take out from fridge now</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Chicken — let it come to room temperature</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Heavy cream (if using)</span></div>
+      <div class="prepare-section-label">🔪 Quick prep before cooking</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Dice the onion into small pieces</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Crush or chop the garlic cloves</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Chop the tomatoes (or open your canned tomatoes)</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Cut the chicken into bite-sized chunks</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Measure out your spices into the small bowl</span></div>
+      <div class="ready-bar">
+        <button class="back-text-btn" onclick="goTo('screen-chicken')">← Back</button>
+        <button class="btn-cook" onclick="startCook('chicken')">I'm Ready! Let's Cook →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHICKEN COOK (built by JS) ═══════════════════ -->
+  <div class="screen" id="screen-cook-chicken"></div>
+  <!-- ═══════════════════ PIZZA PREPARE ═══════════════════ -->
+  <div class="screen" id="screen-prepare-pizza">
+    <div class="prepare-card">
+      <div class="prepare-top-bar">
+        <button class="top-home-btn" onclick="goTo('screen-home')">🏠</button>
+        <span class="prepare-top-title">Get Ready</span>
+        <div style="width:40px;"></div>
+      </div>
+      <div class="prepare-hero">
+        <div class="prepare-emoji">🍕</div>
+        <h2 class="prepare-title">Before we start cooking</h2>
+        <p class="prepare-sub">Get these ready and you'll cook stress-free</p>
+      </div>
+      <div class="prepare-section-label">🍳 Get out your equipment</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A baking tray or oven-safe pan</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A spoon for spreading sauce</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Oven mitts or kitchen gloves</span></div>
+      <div class="prepare-section-label">🧊 Take out now</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Store-bought dough — let it rest at room temp</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Cheese — let it come to room temperature</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Any toppings you're using (pepperoni, veggies)</span></div>
+      <div class="prepare-section-label">🔪 Quick prep before cooking</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Turn oven ON now — set to 220°C / 430°F</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Grate or slice your cheese</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Slice any toppings you're adding</span></div>
+      <div class="ready-bar">
+        <button class="back-text-btn" onclick="goTo('screen-pizza')">← Back</button>
+        <button class="btn-cook" onclick="startCook('pizza')">I'm Ready! Let's Cook →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ PIZZA COOK (built by JS) ═══════════════════ -->
+  <div class="screen" id="screen-cook-pizza"></div>
+
+  <!-- ═══════════════════ DESSERT PREPARE ═══════════════════ -->
+  <div class="screen" id="screen-prepare-dessert">
+    <div class="prepare-card">
+      <div class="prepare-top-bar">
+        <button class="top-home-btn" onclick="goTo('screen-home')">🏠</button>
+        <span class="prepare-top-title">Get Ready</span>
+        <div style="width:40px;"></div>
+      </div>
+      <div class="prepare-hero">
+        <div class="prepare-emoji">🍮</div>
+        <h2 class="prepare-title">Before we start cooking</h2>
+        <p class="prepare-sub">Get these ready and you'll cook stress-free</p>
+      </div>
+      <div class="prepare-section-label">🍳 Get out your equipment</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>4 small oven-safe mugs or ramekins</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A mixing bowl</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A whisk or fork</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A small saucepan</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A baking tray (to hold the mugs in the oven)</span></div>
+      <div class="prepare-section-label">🧊 Take out from fridge now</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Eggs — you need the yolks only, separate them now</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Heavy cream — measure out 300ml</span></div>
+      <div class="prepare-section-label">🔪 Quick prep before cooking</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Turn oven ON — set to 160°C / 320°F</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Separate egg yolks into the mixing bowl (discard whites)</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Measure out 80g of sugar</span></div>
+      <div class="ready-bar">
+        <button class="back-text-btn" onclick="goTo('screen-dessert')">← Back</button>
+        <button class="btn-cook" onclick="startCook('dessert')">I'm Ready! Let's Cook →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ RICE INGREDIENTS ═══════════════════ -->
+  <div class="screen" id="screen-rice">
+    <div class="recipe-card">
+      <div class="recipe-hero" style="background-image: url('https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?q=80&w=1170&auto=format&fit=crop');"><div class="hero-overlay"></div></div>
+      <div class="recipe-body">
+        <div class="title-row"><span class="recipe-title">Rice</span><span class="recipe-meta">20 min · 2 servings</span></div>
+        <div class="tags"><span class="tag tag-easy">Easy</span></div>
+        <div class="ing-header">Ingredients :</div>
+        <div class="ing-row"><span class="ing-name">White rice</span><span class="ing-amt">1 cup</span></div>
+        <div class="ing-row"><span class="ing-name">Water</span><span class="ing-amt">2 cups</span></div>
+        <div class="ing-row"><span class="ing-name">Salt</span><span class="ing-amt">pinch</span></div>
+        <div class="ing-row"><span class="ing-name">Butter or oil (optional)</span><span class="ing-amt">1 tsp</span></div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn-home" onclick="goTo('screen-home')">🏠</button>
+        <button class="btn-cook" onclick="goTo('screen-prepare-rice')">Start Cooking →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ RICE PREPARE ═══════════════════ -->
+  <div class="screen" id="screen-prepare-rice">
+    <div class="prepare-card">
+      <div class="prepare-top-bar">
+        <button class="top-home-btn" onclick="goTo('screen-home')">🏠</button>
+        <span class="prepare-top-title">Get Ready</span>
+        <div style="width:40px;"></div>
+      </div>
+      <div class="prepare-hero">
+        <div class="prepare-emoji">🍚</div>
+        <h2 class="prepare-title">Before we start cooking</h2>
+        <p class="prepare-sub">Get these ready and you'll cook stress-free</p>
+      </div>
+      <div class="prepare-section-label">🍳 Get out your equipment</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A small pot with a lid</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A measuring cup</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A fork or spoon to fluff</span></div>
+      <div class="prepare-section-label">🔪 Quick prep before cooking</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Measure 1 cup of rice</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Rinse the rice under cold water until water runs clear</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Measure 2 cups of water</span></div>
+      <div class="ready-bar">
+        <button class="back-text-btn" onclick="goTo('screen-rice')">← Back</button>
+        <button class="btn-cook" onclick="startCook('rice')">I'm Ready! Let's Cook →</button>
+      </div>
+    </div>
+  </div>
+  <div class="screen" id="screen-cook-rice"></div>
+
+  <!-- ═══════════════════ FRIED EGGS INGREDIENTS ═══════════════════ -->
+  <div class="screen" id="screen-eggs">
+    <div class="recipe-card">
+      <div class="recipe-hero" style="background-image: url('https://images.unsplash.com/photo-1642451378137-7bf98fb6a65a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"><div class="hero-overlay"></div></div>
+      <div class="recipe-body">
+        <div class="title-row"><span class="recipe-title">Fried Eggs</span><span class="recipe-meta">5 min · 1 serving</span></div>
+        <div class="tags"><span class="tag tag-easy">Easy</span></div>
+        <div class="ing-header">Ingredients :</div>
+        <div class="ing-row"><span class="ing-name">Eggs</span><span class="ing-amt">2</span></div>
+        <div class="ing-row"><span class="ing-name">Butter or oil</span><span class="ing-amt">1 tsp</span></div>
+        <div class="ing-row"><span class="ing-name">Salt</span><span class="ing-amt">pinch</span></div>
+        <div class="opt-title">Optional - adds more flavor</div>
+        <div class="ing-row opt"><span class="ing-name">Black pepper</span><span class="ing-amt">pinch</span></div>
+        <div class="ing-row opt"><span class="ing-name">Chili flakes</span><span class="ing-amt">pinch</span></div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn-home" onclick="goTo('screen-home')">🏠</button>
+        <button class="btn-cook" onclick="goTo('screen-prepare-eggs')">Start Cooking →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ EGGS PREPARE ═══════════════════ -->
+  <div class="screen" id="screen-prepare-eggs">
+    <div class="prepare-card">
+      <div class="prepare-top-bar">
+        <button class="top-home-btn" onclick="goTo('screen-home')">🏠</button>
+        <span class="prepare-top-title">Get Ready</span>
+        <div style="width:40px;"></div>
+      </div>
+      <div class="prepare-hero">
+        <div class="prepare-emoji">🥚</div>
+        <h2 class="prepare-title">Before we start cooking</h2>
+        <p class="prepare-sub">Get these ready and you'll cook stress-free</p>
+      </div>
+      <div class="prepare-section-label">🍳 Get out your equipment</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A small non-stick frying pan</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A spatula</span></div>
+      <div class="prepare-section-label">🧊 Take out from fridge now</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>2 eggs — room temperature is easier to cook evenly</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Butter (if using)</span></div>
+      <div class="ready-bar">
+        <button class="back-text-btn" onclick="goTo('screen-eggs')">← Back</button>
+        <button class="btn-cook" onclick="startCook('eggs')">I'm Ready! Let's Cook →</button>
+      </div>
+    </div>
+  </div>
+  <div class="screen" id="screen-cook-eggs"></div>
+
+  <!-- ═══════════════════ GARLIC BREAD INGREDIENTS ═══════════════════ -->
+  <div class="screen" id="screen-garlic-bread">
+    <div class="recipe-card">
+      <div class="recipe-hero" style="background-image: url('https://images.unsplash.com/photo-1598785244280-7a428600d053?q=80&w=1138&auto=format&fit=crop');"><div class="hero-overlay"></div></div>
+      <div class="recipe-body">
+        <div class="title-row"><span class="recipe-title">Garlic Bread</span><span class="recipe-meta">15 min · 2 servings</span></div>
+        <div class="tags"><span class="tag tag-easy">Easy</span></div>
+        <div class="ing-header">Ingredients :</div>
+        <div class="ing-row"><span class="ing-name">Bread (any kind)</span><span class="ing-amt">4 slices</span></div>
+        <div class="ing-row"><span class="ing-name">Butter</span><span class="ing-amt">3 tbsp</span></div>
+        <div class="ing-row"><span class="ing-name">Garlic (or garlic powder)</span><span class="ing-amt">2 cloves</span></div>
+        <div class="ing-row"><span class="ing-name">Salt</span><span class="ing-amt">pinch</span></div>
+        <div class="opt-title">Optional - adds more flavor</div>
+        <div class="ing-row opt"><span class="ing-name">Dried oregano or mixed herbs</span><span class="ing-amt">pinch</span></div>
+        <div class="ing-row opt"><span class="ing-name">Parmesan or any hard cheese</span><span class="ing-amt">handful</span></div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn-home" onclick="goTo('screen-home')">🏠</button>
+        <button class="btn-cook" onclick="goTo('screen-prepare-garlic-bread')">Start Cooking →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ GARLIC BREAD PREPARE ═══════════════════ -->
+  <div class="screen" id="screen-prepare-garlic-bread">
+    <div class="prepare-card">
+      <div class="prepare-top-bar">
+        <button class="top-home-btn" onclick="goTo('screen-home')">🏠</button>
+        <span class="prepare-top-title">Get Ready</span>
+        <div style="width:40px;"></div>
+      </div>
+      <div class="prepare-hero">
+        <div class="prepare-emoji">🧄</div>
+        <h2 class="prepare-title">Before we start cooking</h2>
+        <p class="prepare-sub">Get these ready and you'll cook stress-free</p>
+      </div>
+      <div class="prepare-section-label">🍳 Get out your equipment</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A baking tray</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A small bowl for mixing</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>A knife or spoon for spreading</span></div>
+      <div class="prepare-section-label">🧊 Take out now</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Butter — let it soften at room temp (easier to spread)</span></div>
+      <div class="prepare-section-label">🔪 Quick prep before cooking</div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Turn oven ON — set to 200°C / 390°F</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Crush or finely chop the garlic cloves</span></div>
+      <div class="prepare-item"><span class="prepare-icon">✔</span><span>Mix butter + garlic + pinch of salt in the small bowl</span></div>
+      <div class="ready-bar">
+        <button class="back-text-btn" onclick="goTo('screen-garlic-bread')">← Back</button>
+        <button class="btn-cook" onclick="startCook('garlicBread')">I'm Ready! Let's Cook →</button>
+      </div>
+    </div>
+  </div>
+  <div class="screen" id="screen-cook-garlicBread"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
