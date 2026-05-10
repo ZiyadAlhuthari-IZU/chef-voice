@@ -111,19 +111,19 @@ function hideDebug() {
 // ═══════════════════════════════════════
 //  COMMAND HANDLER — Phase 3
 // ═══════════════════════════════════════
+let isSpeaking = false;
+
 function handleCommand(transcript) {
-  // Find which cook screen is currently active (if any)
+  // Block commands ONLY while AI is actively speaking
+  if (isSpeaking) return;
+
   const activeScreen = document.querySelector('.screen.active');
   if (!activeScreen) return;
   const screenId = activeScreen.id;
 
-  // Match commands - check if the word appears in the transcript
-  // Order matters: "chef tip" must be checked before "tip" etc
-
   // ── HOME command works from anywhere ──
   if (matches(transcript, ['home', 'go home', 'back to home'])) {
-    flashCommand('🏠 Home');
-    goTo('screen-home');
+    fireCommand('🏠 Home', () => goTo('screen-home'));
     return;
   }
 
@@ -132,54 +132,43 @@ function handleCommand(transcript) {
   const recipe = screenId.replace('screen-cook-', '');
   if (!recipes[recipe]) return;
 
-  // CHEF TIP — must come before generic checks
   if (matches(transcript, ['help', 'why', 'tip', 'explain'])) {
-    flashCommand('👨‍🍳 Chef tip');
-    pressChef(recipe);
+    fireCommand('👨‍🍳 Chef tip', () => pressChef(recipe));
     return;
   }
-
-  // READ
   if (matches(transcript, ['read', 'read step', 'read it', 'read again'])) {
-    flashCommand('🔊 Reading step');
-    pressVoice(recipe);
+    fireCommand('🔊 Reading step', () => pressVoice(recipe));
     return;
   }
-
-  // NEXT
   if (matches(transcript, ['next', 'next step', 'continue', 'go next'])) {
-    flashCommand('→ Next');
-    nextStep(recipe);
+    fireCommand('→ Next', () => nextStep(recipe));
     return;
   }
-
-  // BACK
   if (matches(transcript, ['back', 'go back', 'previous', 'last step'])) {
-    flashCommand('← Back');
-    prevStep(recipe);
+    fireCommand('← Back', () => prevStep(recipe));
     return;
   }
-
-  // START / RESUME
   if (matches(transcript, ['start', 'begin', 'go', 'resume'])) {
     const s = state[recipe];
-    if (!s.timerRunning && document.getElementById(recipe + '-timer-box') &&
-        !document.getElementById(recipe + '-timer-box').classList.contains('hidden')) {
-      flashCommand('▶ Timer started');
-      toggleTimer(recipe);
+    const timerBox = document.getElementById(recipe + '-timer-box');
+    if (!s.timerRunning && timerBox && !timerBox.classList.contains('hidden')) {
+      fireCommand('▶ Timer started', () => toggleTimer(recipe));
     }
     return;
   }
-
-  // PAUSE / STOP
   if (matches(transcript, ['pause', 'stop', 'wait', 'hold'])) {
     const s = state[recipe];
     if (s.timerRunning) {
-      flashCommand('⏸ Timer paused');
-      toggleTimer(recipe);
+      fireCommand('⏸ Timer paused', () => toggleTimer(recipe));
     }
     return;
   }
+}
+
+// Fire command — no fixed cooldown, just blocks while AI speaks
+function fireCommand(label, action) {
+  flashCommand(label);
+  action();
 }
 
 // Helper — checks if any of the trigger words appear in the transcript
@@ -255,55 +244,51 @@ function goTo(screenId) {
 // speakNow — cancels any current speech then speaks immediately
 function speakNow(text, onDone) {
   window.speechSynthesis.cancel();
-  // Pause mic while speaking to prevent echo loop
   pauseRecognition();
+  isSpeaking = true;
   setTimeout(() => {
     const u = new SpeechSynthesisUtterance(text);
     u.rate  = 0.92;
     u.pitch = 1.05;
     u.lang  = 'en-US';
     u.onend = () => {
-      // Resume mic after speech finishes + small delay
+      isSpeaking = false;
       setTimeout(() => {
         resumeRecognition();
         if (onDone) onDone();
-      }, 600);
+      }, 400);
     };
     window.speechSynthesis.speak(u);
   }, 150);
 }
 
-// speakWhenFree — waits until current speech finishes, then speaks
 function speakWhenFree(text) {
   const trySpeak = () => {
     if (!window.speechSynthesis.speaking) {
       pauseRecognition();
+      isSpeaking = true;
       const u = new SpeechSynthesisUtterance(text);
-      u.rate  = 0.9;
-      u.pitch = 1.1;
-      u.lang  = 'en-US';
+      u.rate  = 0.9; u.pitch = 1.1; u.lang = 'en-US';
       u.onend = () => {
-        setTimeout(() => resumeRecognition(), 600);
+        isSpeaking = false;
+        setTimeout(() => resumeRecognition(), 400);
       };
       window.speechSynthesis.speak(u);
-    } else {
-      setTimeout(trySpeak, 500);
-    }
+    } else { setTimeout(trySpeak, 500); }
   };
   trySpeak();
 }
 
-// speakAlways — for timer end, always interrupts
 function speakAlways(text) {
   window.speechSynthesis.cancel();
   pauseRecognition();
+  isSpeaking = true;
   setTimeout(() => {
     const u = new SpeechSynthesisUtterance(text);
-    u.rate  = 0.9;
-    u.pitch = 1.1;
-    u.lang  = 'en-US';
+    u.rate  = 0.9; u.pitch = 1.1; u.lang = 'en-US';
     u.onend = () => {
-      setTimeout(() => resumeRecognition(), 600);
+      isSpeaking = false;
+      setTimeout(() => resumeRecognition(), 400);
     };
     window.speechSynthesis.speak(u);
   }, 100);
